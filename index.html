@@ -69,7 +69,7 @@
 			</map>
 		</center>
 		<!-- End Webring Fragment-->
-		<p><center>A <a href="https://michaelbox.net">Michael Beckwith Production</a></center></p>
+		<p><center>A <a href="https://michaelbox.net">Michael Beckwith Product</a></center></p>
 	<!-- Tildeverse Banner code begin -->
 <div style="text-align: center;">
     <object data="https://banner.tildeverse.org/work.php?ID=deepend" type="text/html" width="500" height="80" style="overflow:hidden;">
@@ -77,31 +77,27 @@
 <!-- Tildeverse Banner code end -->
 <script>
 (function(){
-    let hex = [
-        'a', 'b', 'c', 'd', 'e', 'f',
-        '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    ];
-
-    Array.prototype.random = function () {
-        return this[Math.floor((Math.random()*this.length))];
+    function getContrast50(hexcolor){
+        return (parseInt(hexcolor, 16) > 0xffffff/2) ? '111111':'ffffff';
     }
-    let hexcolorer = function() {
-        let hexcolor = '#';
-        for( let i = 1; i<7; i++) {
-            hexcolor += hex.random();
-        }
-	return hexcolor;
-    };
+    function getContrastYIQ(hexcolor){
+	let r = parseInt(hexcolor.substr(0,2),16);
+	let g = parseInt(hexcolor.substr(2,2),16);
+	let b = parseInt(hexcolor.substr(4,2),16);
+	let yiq = ((r*299)+(g*587)+(b*114))/1000;
+	return (yiq >= 128) ? '111111' : 'ffffff';
+    }
 
-    let thecolor = hexcolorer();
-    let linkcolor = hexcolorer();
+    let thecolor = Math.floor(Math.random()*16777215).toString(16);
+    let linkcolor = Math.floor(Math.random()*16777215).toString(16);
     let wrap = document.querySelectorAll(".yarrr");
-    wrap[0].style.color = thecolor;
+    wrap[0].style.color = '#'+thecolor;
     let thebody = document.querySelectorAll("body");
-    thebody[0].style.color = thecolor;
+    thebody[0].style.color = '#'+thecolor;
+    thebody[0].style.backgroundColor = '#'+getContrastYIQ(thecolor);
     let thelinks = document.querySelectorAll("a");
     thelinks.forEach(function(i,index){
-        i.style.color = linkcolor;
+        i.style.color = '#'+linkcolor;
     });
 })();
 </script>
